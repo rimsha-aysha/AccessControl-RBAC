@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+
+# Environment files (secrets!) - only the .env.example files are committed
+.env
+.env.*
+!.env.example
+
+# Build output
+dist/
+build/
+coverage/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Database dumps / local data
+*.dump
+*.bson
+*.archive
+dump/
+mongo-data/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Temporary test artifacts / local database files
+*.tmp
+.tmp/
+.nyc_output/
+*.db
+*.sqlite
+*.sqlite3
