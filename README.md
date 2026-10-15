@@ -63,12 +63,12 @@ Both scripts are **safe to run again** — they never create duplicates and neve
 ```bash
 cd frontend
 npm install
-cp .env.example .env          # VITE_API_BASE_URL=http://localhost:5050/api
+cp .env.example .env          # VITE_API_URL=http://localhost:5050/api
 npm run dev                   # http://localhost:5180
 ```
 Open **http://localhost:5180** and sign in with your `ADMIN_EMAIL` / `ADMIN_PASSWORD`.
 
-> **Ports:** this project uses **5050** (API) and **5180** (frontend) so it doesn't clash with other projects on the common 5000/5173 ports. To change them, edit `PORT` + `CORS_ORIGIN` in `backend/.env`, `VITE_API_BASE_URL` in `frontend/.env`, and `frontend/vite.config.js`.
+> **Ports:** this project uses **5050** (API) and **5180** (frontend) so it doesn't clash with other projects on the common 5000/5173 ports. To change them, edit `PORT` + `CORS_ORIGIN` in `backend/.env`, `VITE_API_URL` in `frontend/.env`, and `frontend/vite.config.js`.
 
 ### Demo accounts
 | Account | Role | Branch scope | Sign-in |
@@ -178,7 +178,7 @@ Common status codes: `400` validation, `401` not signed in / bad token, `403` no
 **frontend/.env**
 | Variable | Description |
 |---|---|
-| `VITE_API_BASE_URL` | Backend URL including `/api`. This value is bundled into the public JS, so never put secrets in it |
+| `VITE_API_URL` | Backend URL ending in `/api` (not `/api/health`). This value is bundled into the public JS, so never put secrets in it |
 
 `.env` files are git-ignored. Only the `.env.example` files are meant to be committed.
 
@@ -198,7 +198,7 @@ Common status codes: `400` validation, `401` not signed in / bad token, `403` no
 
 ### Frontend — e.g. Vercel / Netlify
 1. New project, **root directory `frontend`**, build command `npm run build`, output directory `dist`.
-2. Set `VITE_API_BASE_URL=https://<your-backend-domain>/api` **before building**. Vite bakes it in at build time.
+2. Set `VITE_API_URL=https://<your-backend-domain>/api` **before building**. Vite bakes it in at build time.
 3. Client-side routing rewrites are included: `vercel.json` (Vercel) and `public/_redirects` (Netlify).
 
 ---

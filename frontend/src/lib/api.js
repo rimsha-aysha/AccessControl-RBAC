@@ -3,7 +3,15 @@
  * - Adds the JWT "Authorization" header automatically.
  * - Turns error responses into ApiRequestError with a readable message.
  */
-export const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:5050/api').replace(/\/+$/, '');
+// VITE_API_URL is baked in at build time (e.g. https://<your-backend>/api). VITE_API_BASE_URL is the older name, still accepted.
+// The localhost fallback is only used by the local dev server, never in a production build.
+const configuredApiUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL;
+if (!configuredApiUrl && import.meta.env.PROD) {
+  console.error('VITE_API_URL is not set. Set it to your backend URL ending in /api and rebuild the frontend.');
+}
+export const API_BASE_URL = (configuredApiUrl || (import.meta.env.DEV ? 'http://localhost:5050/api' : ''))
+  .replace(/\/+$/, '')
+  .replace(/\/health$/, ''); // guard against pasting the health-check URL
 
 const TOKEN_KEY = 'rbac_token';
 
